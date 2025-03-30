@@ -105,7 +105,18 @@ Your browser does not support the video tag.
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const video = document.querySelector(".background-video");
-  video.play().catch(error => console.error("Autoplay verhindert:", error));
+
+ 
+  const playPromise = video.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+     
+      document.addEventListener("click", () => {
+        video.play();
+      }, { once: true });
+    });
+  }
 });
 </script>
 
